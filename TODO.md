@@ -20,5 +20,10 @@ Candy Crush clone TODOs
 	- Score Display
 	- Clickable	
 
+- Lerns
+	- Mouse input: how to w/ ECS? Do I need a system for that? or do is that a thing I get for free/cheap w/ Unity? OMG I'm such a n00b.
+	- Read more about ECS
+
+
 
 
