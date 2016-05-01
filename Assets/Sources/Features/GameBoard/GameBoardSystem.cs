@@ -49,8 +49,5 @@ public class GameBoardSystem : IInitializeSystem, IReactiveSystem, ISetPool
             }
         }
     }
-
-    
-
 }
 
