@@ -12,15 +12,17 @@ namespace Entitas {
 
         public bool hasResource { get { return HasComponent(ComponentIds.Resource); } }
 
-        public Entity AddResource(string newName) {
+        public Entity AddResource(string newName, int newComponentId) {
             var component = CreateComponent<ResourceComponent>(ComponentIds.Resource);
             component.name = newName;
+            component.ComponentId = newComponentId;
             return AddComponent(ComponentIds.Resource, component);
         }
 
-        public Entity ReplaceResource(string newName) {
+        public Entity ReplaceResource(string newName, int newComponentId) {
             var component = CreateComponent<ResourceComponent>(ComponentIds.Resource);
             component.name = newName;
+            component.ComponentId = newComponentId;
             ReplaceComponent(ComponentIds.Resource, component);
             return this;
         }

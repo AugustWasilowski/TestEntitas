@@ -13,11 +13,14 @@ public static class PoolExtensions
 
     public static Entity CreateRandomPiece(this Pool pool, int x, int y)
     {
+        int pieceId = Random.Range(0, _pieces.Length);
+        string pieceName = _pieces[pieceId];
+
         return pool.CreateEntity()
            .IsGameBoardElement(true)
            .AddPosition(x, y)
            .IsMovable(true)
            .IsInteractive(true)
-           .AddResource(_pieces[Random.Range(0, _pieces.Length)]);
+           .AddResource(pieceName, pieceId);
     }
 }
