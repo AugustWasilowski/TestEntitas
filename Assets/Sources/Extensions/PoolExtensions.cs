@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using UnityEngine;
+using System.Collections.Generic;
 
 public static class PoolExtensions
 {
@@ -21,6 +22,27 @@ public static class PoolExtensions
            .AddPosition(x, y)
            .IsMovable(true)
            .IsInteractive(true)
-           .AddResource(pieceName, pieceId);
+           .AddResource(pieceName, pieceId)
+           .IsDetectMatch(true);
+    }
+
+    public static bool IsHorizontalMatch(this Pool pool, PositionComponent position, out Entity entity)
+    {
+        return pool.IsHorizontalMatch(position.x, position.y, out entity);
+    }
+
+    public static bool IsHorizontalMatch(this Pool pool, int x, int y, out Entity entity)
+    {
+        var gameboard = pool.gameBoard;
+        bool edge = x == -1 || x == 0 || x == gameboard.columns || y == -1 || y == gameboard.rows;
+        if (edge)
+        {
+            entity = null;
+            return false;
+        }
+            
+        entity = pool.gameBoardCache.grid[x -1, y];
+        
+        return entity == null;
     }
 }
