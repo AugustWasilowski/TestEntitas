@@ -25,8 +25,8 @@ public class ProcessInputSystem : IReactiveSystem, ISetPool
         {
             var e = _pool.gameBoardCache.grid[input.x, input.y];
             if (e != null && e.isInteractive)
-            {
-                e.isDestroy = true;
+            {              
+                _pool.DestroyAdjacentIfSame(e);
             }
         }
 

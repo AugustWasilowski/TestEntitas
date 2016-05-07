@@ -28,7 +28,7 @@ public class DetectMatchSystem : IReactiveSystem, ISetPool
     public TriggerOnEvent trigger
     {
         get
-        {
+        {            
             return Matcher.Input.OnEntityAdded();
         }
     }
