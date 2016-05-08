@@ -12,13 +12,13 @@ namespace Entitas {
 
         public bool hasGameBoardCache { get { return HasComponent(ComponentIds.GameBoardCache); } }
 
-        public Entity AddGameBoardCache(Entitas.Entity[,] newGrid) {
+        public Entity AddGameBoardCache(Entitas.Entity[,,] newGrid) {
             var component = CreateComponent<GameBoardCacheComponent>(ComponentIds.GameBoardCache);
             component.grid = newGrid;
             return AddComponent(ComponentIds.GameBoardCache, component);
         }
 
-        public Entity ReplaceGameBoardCache(Entitas.Entity[,] newGrid) {
+        public Entity ReplaceGameBoardCache(Entitas.Entity[,,] newGrid) {
             var component = CreateComponent<GameBoardCacheComponent>(ComponentIds.GameBoardCache);
             component.grid = newGrid;
             ReplaceComponent(ComponentIds.GameBoardCache, component);
@@ -37,7 +37,7 @@ namespace Entitas {
 
         public bool hasGameBoardCache { get { return gameBoardCacheEntity != null; } }
 
-        public Entity SetGameBoardCache(Entitas.Entity[,] newGrid) {
+        public Entity SetGameBoardCache(Entitas.Entity[,,] newGrid) {
             if (hasGameBoardCache) {
                 throw new EntitasException("Could not set gameBoardCache!\n" + this + " already has an entity with GameBoardCacheComponent!",
                     "You should check if the pool already has a gameBoardCacheEntity before setting it or use pool.ReplaceGameBoardCache().");
@@ -47,7 +47,7 @@ namespace Entitas {
             return entity;
         }
 
-        public Entity ReplaceGameBoardCache(Entitas.Entity[,] newGrid) {
+        public Entity ReplaceGameBoardCache(Entitas.Entity[,,] newGrid) {
             var entity = gameBoardCacheEntity;
             if (entity == null) {
                 entity = SetGameBoardCache(newGrid);

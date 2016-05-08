@@ -17,7 +17,7 @@ public class AddViewSystem : IReactiveSystem
 
     public void Execute(List<Entity> entities)
     {
-        Debug.Log("Add View");
+        Debug.Log("Add View"); 
 
         foreach (var e in entities)
         {
@@ -40,7 +40,7 @@ public class AddViewSystem : IReactiveSystem
                 if (e.hasPosition)
                 {
                     var pos = e.position;
-                    gameObject.transform.position = new Vector3(pos.x, pos.y, 0f);
+                    gameObject.transform.position = new Vector3(pos.x, pos.y, pos.z);
                 }
             }
         }

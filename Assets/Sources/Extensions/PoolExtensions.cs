@@ -12,18 +12,17 @@ public static class PoolExtensions
         Res.CandyRed
     };
 
-    public static Entity CreateRandomPiece(this Pool pool, int x, int y)
+    public static Entity CreateRandomPiece(this Pool pool, int x, int y, int z)
     {
         int pieceId = Random.Range(0, _pieces.Length);
         string pieceName = _pieces[pieceId];
 
         return pool.CreateEntity()
            .IsGameBoardElement(true)
-           .AddPosition(x, y)
+           .AddPosition(x, y, z)
            .IsMovable(true)
            .IsInteractive(true)
-           .AddResource(pieceName, pieceId)
-           .IsDetectMatch(true);
+           .AddResource(pieceName, pieceId);
     }
 
     public static bool IsLeftEntityExist(this Pool pool, PositionComponent position, out Entity entity)
@@ -33,14 +32,13 @@ public static class PoolExtensions
 
     public static bool IsLeftEntityExist(this Pool pool, int x, int y, out Entity entity)
     {
-        var gameboard = pool.gameBoard;
         if (x <= 0)
         {
             entity = null;
             return false;
         }
             
-        entity = pool.gameBoardCache.grid[x -1, y];
+        entity = pool.gameBoardCache.grid[x -1, y, 0];
         
         return entity != null;
     }
@@ -59,7 +57,7 @@ public static class PoolExtensions
             return false;
         }
 
-        entity = pool.gameBoardCache.grid[x + 1, y];
+        entity = pool.gameBoardCache.grid[x + 1, y, 0];
 
         return entity != null;
     }
@@ -78,7 +76,7 @@ public static class PoolExtensions
             return false;
         }
 
-        entity = pool.gameBoardCache.grid[x, y + 1];
+        entity = pool.gameBoardCache.grid[x, y + 1, 0];
 
         return entity != null;
     }
@@ -90,14 +88,13 @@ public static class PoolExtensions
 
     public static bool IsBottomEntityExist(this Pool pool, int x, int y, out Entity entity)
     {
-        var gameboard = pool.gameBoard;
         if (y <= 0)
         {
             entity = null;
             return false;
         }
 
-        entity = pool.gameBoardCache.grid[x, y - 1];
+        entity = pool.gameBoardCache.grid[x, y - 1, 0];
 
         return entity != null;
     }
@@ -108,8 +105,6 @@ public static class PoolExtensions
         {
             return;
         }
-
-        List<Entity> DetectedMatchingEntitites = new List<Entity>();
 
         Entity leftEntity;
         if (IsLeftEntityExist(pool, e.position, out leftEntity))

@@ -2,10 +2,10 @@
 
 public static class GameBoardLogic
 {
-    public static int GetNextEmptyRow(this Entity[,] grid, int column, int row)
+    public static int GetNextEmptyRow(this Entity[,,] grid, int column, int row)
     {
         var rowBelow = row - 1;
-        while (rowBelow >= 0 && grid[column, rowBelow] == null)
+        while (rowBelow >= 0 && grid[column, rowBelow, 0] == null)
         {
             rowBelow -= 1;
         }
@@ -13,15 +13,14 @@ public static class GameBoardLogic
         return rowBelow + 1;
     }
 
-    public static bool HasHorizontalMatch(this Entity[,] grid, int column, int row)
+    public static int GetNextEmptyDepth(this Entity[,,] grid, int column, int row, int depth)
     {
-        var columnLeft = column - 1;
-        var columnRight = column + 1;
-        //if (columnLeft >= 0 && columnRight < )
-        //{
+        var depthBelow = depth - 1;
+        while (depthBelow >= 0 && grid[column, row, depthBelow] == null)
+        {
+            depthBelow -= 1;
+        }
 
-        //}
-
-        return false;
+        return depthBelow + 1;
     }
 }

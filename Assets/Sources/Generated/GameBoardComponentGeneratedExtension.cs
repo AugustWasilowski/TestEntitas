@@ -12,17 +12,19 @@ namespace Entitas {
 
         public bool hasGameBoard { get { return HasComponent(ComponentIds.GameBoard); } }
 
-        public Entity AddGameBoard(int newColumns, int newRows) {
+        public Entity AddGameBoard(int newColumns, int newRows, int newDepths) {
             var component = CreateComponent<GameBoardComponent>(ComponentIds.GameBoard);
             component.columns = newColumns;
             component.rows = newRows;
+            component.depths = newDepths;
             return AddComponent(ComponentIds.GameBoard, component);
         }
 
-        public Entity ReplaceGameBoard(int newColumns, int newRows) {
+        public Entity ReplaceGameBoard(int newColumns, int newRows, int newDepths) {
             var component = CreateComponent<GameBoardComponent>(ComponentIds.GameBoard);
             component.columns = newColumns;
             component.rows = newRows;
+            component.depths = newDepths;
             ReplaceComponent(ComponentIds.GameBoard, component);
             return this;
         }
@@ -39,22 +41,22 @@ namespace Entitas {
 
         public bool hasGameBoard { get { return gameBoardEntity != null; } }
 
-        public Entity SetGameBoard(int newColumns, int newRows) {
+        public Entity SetGameBoard(int newColumns, int newRows, int newDepths) {
             if (hasGameBoard) {
                 throw new EntitasException("Could not set gameBoard!\n" + this + " already has an entity with GameBoardComponent!",
                     "You should check if the pool already has a gameBoardEntity before setting it or use pool.ReplaceGameBoard().");
             }
             var entity = CreateEntity();
-            entity.AddGameBoard(newColumns, newRows);
+            entity.AddGameBoard(newColumns, newRows, newDepths);
             return entity;
         }
 
-        public Entity ReplaceGameBoard(int newColumns, int newRows) {
+        public Entity ReplaceGameBoard(int newColumns, int newRows, int newDepths) {
             var entity = gameBoardEntity;
             if (entity == null) {
-                entity = SetGameBoard(newColumns, newRows);
+                entity = SetGameBoard(newColumns, newRows, newDepths);
             } else {
-                entity.ReplaceGameBoard(newColumns, newRows);
+                entity.ReplaceGameBoard(newColumns, newRows, newDepths);
             }
 
             return entity;

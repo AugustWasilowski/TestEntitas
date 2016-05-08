@@ -26,12 +26,15 @@ public class GameBoardSystem : IInitializeSystem, IReactiveSystem, ISetPool
     {
         Debug.Log("Create GameBoard");
 
-        var gameBoard = _pool.SetGameBoard(10, 12).gameBoard;
+        var gameBoard = _pool.SetGameBoard(9, 9, 9).gameBoard;
         for (int row = 0; row < gameBoard.rows; row++)
         {
             for (int column = 0; column < gameBoard.columns; column++)
             {
-                _pool.CreateRandomPiece(column, row);
+                for (int depth = 0; depth < gameBoard.depths; depth++)
+                {
+                    _pool.CreateRandomPiece(column, row, depth);
+                }                
             }
         }
     }

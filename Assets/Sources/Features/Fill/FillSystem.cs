@@ -20,15 +20,19 @@ public class FillSystem : IReactiveSystem, ISetPool
 
         var gameBoard = _pool.gameBoard;
         var grid = _pool.gameBoardCache.grid;
-        for (int column = 0; column < gameBoard.columns; column++)
+        for (int depth = 0; depth < gameBoard.depths; depth++)
         {
-            var nextRowPos = grid.GetNextEmptyRow(column, gameBoard.rows);
-            while (nextRowPos != gameBoard.rows)
+            for (int column = 0; column < gameBoard.columns; column++)
             {
-                _pool.CreateRandomPiece(column, nextRowPos);
-                nextRowPos = grid.GetNextEmptyRow(column, gameBoard.rows);
+                var nextRowPos = grid.GetNextEmptyRow(column, gameBoard.rows);
+                while (nextRowPos != gameBoard.rows)
+                {
+                    _pool.CreateRandomPiece(column, nextRowPos, depth); // TODO: z needs to be incremented. NextRowPos needs to swtich from y to z
+                    nextRowPos = grid.GetNextEmptyRow(column, gameBoard.rows);
+                }
             }
         }
+        
     }
 
     public void SetPool(Pool pool)

@@ -21,16 +21,21 @@ public class FallSystem : IReactiveSystem, ISetPool
 
         var gameBoard = _pool.gameBoard;
         var grid = _pool.gameBoardCache.grid;
-        for (int column = 0; column < gameBoard.columns; column++)
+
+        for (int depth = 0; depth < gameBoard.depths; depth++)
         {
-            for (int row = 0; row < gameBoard.rows; row++)
+            for (int column = 0; column < gameBoard.columns; column++)
             {
-                var e = grid[column, row];
-                if (e != null && e.isMovable)
+                for (int row = 0; row < gameBoard.rows; row++)
                 {
-                    moveDown(e, column, row, grid);
+                    var e = grid[column, row, 0];
+                    if (e != null && e.isMovable)
+                    {
+                        moveForward(e, column, row, depth, grid); // TODO: This is broken somehow. 
+                        //moveDown(e, column, row, grid);
+                    }
                 }
-            }    
+            }
         }
     }
 
@@ -39,12 +44,21 @@ public class FallSystem : IReactiveSystem, ISetPool
         _pool = pool;
     }
 
-    private void moveDown(Entity e, int column, int row, Entity[,] grid)
+    private void moveDown(Entity e, int column, int row, Entity[,,] grid)
     {
         var nextRowPos = grid.GetNextEmptyRow(column, row);
         if (nextRowPos != row)
         {
-            e.ReplacePosition(column, nextRowPos);
+            e.ReplacePosition(column, nextRowPos, e.position.z);
+        }
+    }
+
+    private void moveForward(Entity e, int column, int row, int depth, Entity[,,] grid)
+    {
+        var nextDepthPos = grid.GetNextEmptyDepth(column, row, depth);
+        if (nextDepthPos != depth)
+        {
+            e.ReplacePosition(column, row, nextDepthPos);
         }
     }
 }

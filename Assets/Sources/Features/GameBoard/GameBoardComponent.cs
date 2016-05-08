@@ -6,5 +6,6 @@ public class GameBoardComponent : IComponent
 {
     public int columns;
     public int rows;
+    public int depths;
 }
 

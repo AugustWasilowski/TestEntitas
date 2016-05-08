@@ -20,7 +20,7 @@ public class RenderPositionSystem : IReactiveSystem
         foreach (var e in entities)
         {
             var pos = e.position;
-            e.view.gameObject.transform.DOMove(new Vector3(pos.x, pos.y, 0f), 0.3f);
+            e.view.gameObject.transform.DOMove(new Vector3(pos.x, pos.y, pos.z), 0.3f);
         }
     }
 }

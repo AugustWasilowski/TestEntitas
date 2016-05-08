@@ -22,11 +22,11 @@ public class CreateGameBoardCacheSystem : ISystem, ISetPool
     {
         Debug.Log("Create GameBoard Cache");
 
-        var grid = new Entity[gameBoard.columns, gameBoard.rows];
+        var grid = new Entity[gameBoard.columns, gameBoard.rows, gameBoard.depths];
         foreach (var e in _pool.GetEntities(Matcher.AllOf(Matcher.GameBoardElement, Matcher.Position)))
         {
             var pos = e.position;
-            grid[pos.x, pos.y] = e;
+            grid[pos.x, pos.y, pos.z] = e;
         }
         _pool.ReplaceGameBoardCache(grid);
     }
@@ -35,7 +35,7 @@ public class CreateGameBoardCacheSystem : ISystem, ISetPool
     {
         var grid = _pool.gameBoardCache.grid;
         var pos = entity.position;
-        grid[pos.x, pos.y] = entity;
+        grid[pos.x, pos.y, pos.z] = entity;
         _pool.ReplaceGameBoardCache(grid);
     }
 
@@ -48,7 +48,7 @@ public class CreateGameBoardCacheSystem : ISystem, ISetPool
         }
 
         var grid = _pool.gameBoardCache.grid;
-        grid[pos.x, pos.y] = null;
+        grid[pos.x, pos.y, pos.z] = null;
         _pool.ReplaceGameBoardCache(grid);
     }
 }
