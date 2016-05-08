@@ -42,7 +42,8 @@ public class RemoveViewSystem : IReactiveSystem, ISetPool, IEnsureComponents
         var spriterenderer = gameObject.GetComponent<SpriteRenderer>();
         var color = spriterenderer.color;
         color.a = 0f;
-        spriterenderer.material.DOColor(color, 0.2f);
-        gameObject.transform.DOScale(Vector3.one * 1.5f, 0.2f).OnComplete(() => Object.Destroy(gameObject));
+        spriterenderer.material.DOColor(color, .5f);
+        gameObject.transform.DOScale(Vector3.one * 1.5f, .5f).OnComplete(() => Object.Destroy(gameObject));
+        gameObject.transform.DOMoveZ(-1f, .2f, false);
     }
 }
