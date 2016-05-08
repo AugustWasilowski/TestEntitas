@@ -12,4 +12,16 @@ public static class GameBoardLogic
 
         return rowBelow + 1;
     }
+
+    public static bool HasHorizontalMatch(this Entity[,] grid, int column, int row)
+    {
+        var columnLeft = column - 1;
+        var columnRight = column + 1;
+        //if (columnLeft >= 0 && columnRight < )
+        //{
+
+        //}
+
+        return false;
+    }
 }
